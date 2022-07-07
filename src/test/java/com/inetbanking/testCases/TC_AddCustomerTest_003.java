@@ -16,9 +16,9 @@ import com.inetbanking.pageObjects.LoginPage;
 
 
 public class TC_AddCustomerTest_003 extends BaseClass {
+	
 
-
-	@Test(retryAnalyzer = RetryAnalyzer.class)	
+	@Test(retryAnalyzer = RetryAnalyzer.class)
 	public void addNewCustomer() throws InterruptedException {
 
 		LoginPage lp=new LoginPage(driver);
@@ -46,7 +46,7 @@ public class TC_AddCustomerTest_003 extends BaseClass {
 		String number=randomeNum(8);
 		String mobileNumber="9"+number;
 		addcust.custtelephoneno(mobileNumber);
-
+		
 		String email=randomestring()+"@gmail.com";
 		String emailId=email.toLowerCase();
 		addcust.custemailid(emailId);
@@ -54,7 +54,7 @@ public class TC_AddCustomerTest_003 extends BaseClass {
 		addcust.custsubmit();
 
 		logger.info("validation started....");
-		Thread.sleep(3000);
+	
 
 		boolean res=driver.getPageSource().contains("Customer Registered Successfully!!!");
 

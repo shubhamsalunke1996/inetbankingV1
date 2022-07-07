@@ -14,7 +14,7 @@ public class TC_LoginDDT_002 extends BaseClass {
 
 	@Test(dataProvider = "LoginData")
 	public void loginDDT(String user,String pwd)  {
-//retryAnalyzer = RetryAnalyzer.class
+
 		LoginPage lp=new LoginPage(driver);
 		lp.setUserName(user);
 		logger.info("user name provided");

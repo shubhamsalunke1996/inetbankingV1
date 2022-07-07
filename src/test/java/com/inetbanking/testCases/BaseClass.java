@@ -119,6 +119,8 @@ public class BaseClass {
 		String generatedString2=RandomStringUtils.randomNumeric(number);
 		return (generatedString2);
 	}
+	
+	
 
 
 	

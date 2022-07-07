@@ -3,6 +3,7 @@ package com.inetbanking.pageObjects;
 
 
 import java.time.Duration;
+
 import java.util.NoSuchElementException;
 
 import org.openqa.selenium.By;
@@ -19,12 +20,8 @@ import com.google.common.base.Function;
 
 public class AddCustomerPage {
 
-//	WebDriver ldriver;
 WebDriver driver;
-	//public AddCustomerPage(WebDriver rdriver) {
-	//	ldriver=rdriver;
-	//	PageFactory.initElements(rdriver, this);
-	//}
+	
 public AddCustomerPage(WebDriver driver) {
 	this.driver=driver;
 	PageFactory.initElements(driver, this);
@@ -35,9 +32,6 @@ public AddCustomerPage(WebDriver driver) {
 	@CacheLookup
 	WebElement lnkAddNewCustomer;
 	
-	//@FindBy(how=How.LINK_TEXT, using="New Customer")
-	//@CacheLookup
-    //WebElement lnkAddNewCustomer;
 	
 	@FindBy(how=How.XPATH,using="//*[@id=\"google_ads_iframe_/24132379/INTERSTITIAL_DemoGuru99_0\"]")
 	@CacheLookup
@@ -125,30 +119,28 @@ public AddCustomerPage(WebDriver driver) {
 			public WebElement apply(WebDriver driver) {
 
 				WebElement linkElement= driver.findElement(By.xpath("//*[@id=\"google_ads_iframe_/24132379/INTERSTITIAL_DemoGuru99_0\"]"));
-
+				
+			
 				if(linkElement.isEnabled()) {
-					System.out.println("Element found");
+				
+					System.out.println("Element addvertisement is  found");
+					
 				}
+				
+				
 				return linkElement;
 			}
+			
 		});
+		
 		String nameofadd=element.getText();
-		System.out.println("nameofadd");
-		driver.switchTo().frame(frame1Path);
+		System.out.println(nameofadd);
+		driver.switchTo().frame(element);
+		//driver.switchTo().frame(frame1Path);
 		driver.switchTo().frame(frame2Path);
 		dismissAdd.click();
 		driver.switchTo().defaultContent();
-		
-	
-			// WebElement frame1 = driver.findElement(By.id("google_ads_iframe_/24132379/INTERSTITIAL_DemoGuru99_0"));
-			//    driver.switchTo().frame(frame1);
-			 //   WebElement frame2 = driver.findElement(By.id("ad_iframe"));
-			 //   driver.switchTo().frame(frame2);
-			 //   driver.findElement(By.xpath("//div[@id='dismiss-button']/div/span")).click();
-			 //   driver.switchTo().defaultContent();
 			
-		
-		
 	}
 
 	public void custName(String cname) {
