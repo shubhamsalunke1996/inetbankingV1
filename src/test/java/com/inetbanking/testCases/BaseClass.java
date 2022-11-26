@@ -16,6 +16,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 import org.openqa.selenium.edge.EdgeDriver;
+import org.openqa.selenium.edge.EdgeOptions;
 import org.openqa.selenium.firefox.FirefoxDriver;
 import org.openqa.selenium.firefox.FirefoxOptions;
 import org.testng.annotations.AfterClass;
@@ -50,12 +51,22 @@ public class BaseClass {
 		if(browser.equalsIgnoreCase("chrome")) {
 			//System.setProperty("webdriver.chrome.driver", readconfig.getChromePath());
 			WebDriverManager.chromedriver().setup();
-			ChromeOptions options=new ChromeOptions();
+			ChromeOptions options=new ChromeOptions();				
 			Map<String, Object> prefs=new HashedMap<String, Object>();
 			prefs.put("profile.managed_default_content_setting.javascript", 2);
-			options.setExperimentalOption("prefs", prefs);		
+			options.setExperimentalOption("prefs", prefs);
+			options.addArguments("window-size=1980,1080");
 			driver=new ChromeDriver(options);
 		}
+	
+	    else if (browser.equalsIgnoreCase("Ignitochrome")) {
+	    	WebDriverManager.chromedriver().setup();
+			ChromeOptions options=new ChromeOptions();		
+			options.addArguments("--incognito");
+			options.addArguments("window-size=1980,1080");
+			driver=new ChromeDriver(options);
+
+	}
 		else if (browser.equalsIgnoreCase("firefox")) {
 			//System.setProperty("webdriver.gecko.driver", readconfig.getFirefoxPath());
 			WebDriverManager.firefoxdriver().setup();
@@ -64,10 +75,19 @@ public class BaseClass {
 			driver=new FirefoxDriver(options);
 
 		}
-		else if (browser.equalsIgnoreCase("edge")) {
-			//System.setProperty("webdriver.edge.driver", readconfig.getEdgePath());	
+		else if (browser.equalsIgnoreCase("edge")) {			
+				//System.setProperty("webdriver.edge.driver", readconfig.getEdgePath());	
+				WebDriverManager.edgedriver().setup();
+				driver=new EdgeDriver();
+		}
+		else if (browser.equalsIgnoreCase("Privateedge")) {
+				
 			WebDriverManager.edgedriver().setup();
-			driver=new EdgeDriver();
+			EdgeOptions options = new EdgeOptions();			
+			options.addArguments("InPrivate");
+			options.addArguments("window-size=1980,1080");
+			driver = new EdgeDriver(options);
+			
 		}else {
 			System.out.println("Incorrect browser");
 		}
@@ -75,7 +95,8 @@ public class BaseClass {
 		driver.get(baseURL);
 		driver.manage().window().maximize();
 		driver.manage().deleteAllCookies();
-		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+		driver.manage().timeouts().pageLoadTimeout(Duration.ofSeconds(100));		
+		driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(30));
 	}
 
 	@AfterClass
